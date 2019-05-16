@@ -1,5 +1,6 @@
 #!/bin/bash
 # comment parts depending on their necessity!
+# These apply to an ubuntu ec2 instance m5.12xlarge.
 # install conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
@@ -16,6 +17,8 @@ sudo chmod -R 777 .
 mkdir home
 cd home
 git clone https://github.com/abliu/viral-genomes
+# if git lfs / data don't sync, switch to local terminal and scp local files to ec2
+# scp -i <pem-file> <data-file> ubuntu@<ec2-ip-address>:/working/home/viral-genomes/data/
 cd viral-genomes
 # https://wiki.rc.hms.harvard.edu/display/O2/Conda+on+O2 if on O2
 
@@ -28,7 +31,7 @@ conda install -y jupyter
 # conda install -y scikit-learn=0.20.2
 # pip install scikit-optimize # for Bayes optimization
 conda install -y biopython
-pip install slackclient  # for notifications when long jobs are done
+pip install slackclient==1.3.0  # for notifications when long jobs are done
 # pip install memory-profiler
 git config --global user.name "Andrew Bo Liu"
 git config --global user.email "andrew.bo.liu@gmail.com"
